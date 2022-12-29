@@ -58,12 +58,27 @@ function toggleTodoItem(){
     const listItem = this.parentNode;
     listItem.classList.toggle('completed');
 }
+//dont work idk
+function editTodoItem() {
+    const listItem = this.parentNode;
+    const title = listItem.querySelector('.title');
+    const editInput = listItem.querySelector('.textfield');
+    const isEditing = listItem.classList.contains('editing');
 
-function editTodoItem(){
+    if (isEditing) {
+        title.innerText = editInput.value;
+        this.innerText = 'Изменить';
+    } else {
+        editInput.value = title.innerText;
+        this.innerText = 'Сохранить';
+    }
 
+    listItem.classList.toggle('editing');
 }
-
+//
 function deleteTodoItem(){
+    const listItem = this.parentNode;
+    todoList.removeChild(listItem);
 
 }
 

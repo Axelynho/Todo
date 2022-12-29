@@ -3,7 +3,7 @@ function createTodoItem(title){
     checkbox.type ='checkbox';
     checkbox.className = 'checkbox';
     
-    const label = document.createElement('lavel');
+    const label = document.createElement('label');
     label.innerText = title;
     label.className ='title';
 
@@ -16,8 +16,8 @@ function createTodoItem(title){
     editButton.className = 'edit';
 
     const deleteButton = document.createElement('button');
-    deleteButton.innerText = 'Удалить'
-    deleteButton.className = 'delete'
+    deleteButton.innerText = 'Удалить';
+    deleteButton.className = 'delete';
 
     const listItem = document.createElement('li');
     listItem.className = 'todo-item';
@@ -36,7 +36,9 @@ function addTodoItem(event){
 
     if(addInput.value === '') return alert('Need enter a task.');
 
-    const listItem=createTodoItem(addInput.value);
+    const todoItem=createTodoItem(addInput.value);
+    todoList.appendChild(todoItem);
+    addInput.value='';
 }
 
 const todoForm = document.getElementById('todo-form');

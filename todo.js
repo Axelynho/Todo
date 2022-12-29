@@ -28,7 +28,20 @@ function createTodoItem(title){
     listItem.appendChild(editButton);
     listItem.appendChild(deleteButton);
     console.log(listItem);
+
+    bindEvents(listItem);
+
     return listItem;
+}
+
+function bindEvents(todoItem){
+    const checkbox = todoItem.querySelector('.checkbox');
+    const editButton = todoItem.querySelector('button.edit');
+    const deleteButton = todoItem.querySelector('button.delete');
+
+    checkbox.addEventListener('change',toggleTodoItem);
+    editButton.addEventListener('click',editTodoItem);
+    deleteButton.addEventListener('click',deleteTodoItem);
 }
 
 function addTodoItem(event){
@@ -39,6 +52,19 @@ function addTodoItem(event){
     const todoItem=createTodoItem(addInput.value);
     todoList.appendChild(todoItem);
     addInput.value='';
+}
+
+function toggleTodoItem(){
+    const listItem = this.parentNode;
+    listItem.classList.toggle('completed');
+}
+
+function editTodoItem(){
+
+}
+
+function deleteTodoItem(){
+
 }
 
 const todoForm = document.getElementById('todo-form');

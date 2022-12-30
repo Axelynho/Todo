@@ -1,33 +1,26 @@
+function createElement(tag,props,...children) {
+    const element = document.createElement(tag);
+
+    Object.keys(props).forEach(key => element[key] = props[key]);
+
+    if (children.length > 0) {
+        children.forEach(child => {
+            if (typeof child === 'string'){
+                child = document.createTextNode(child);
+            }
+
+            element.appendChild(child);
+        });
+    }
+    return element;
+}
 function createTodoItem(title){
-    const checkbox = document.createElement('input');
-    checkbox.type ='checkbox';
-    checkbox.className = 'checkbox';
-    
-    const label = document.createElement('label');
-    label.innerText = title;
-    label.className ='title';
-
-    const editInput = document.createElement('input');
-    editInput.type = 'text';
-    editInput.classname = 'textfield';
-
-    const editButton = document.createElement('button');
-    editButton.innerText = 'Изменить';
-    editButton.className = 'edit';
-
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = 'Удалить';
-    deleteButton.className = 'delete';
-
-    const listItem = document.createElement('li');
-    listItem.className = 'todo-item';
-
-    listItem.appendChild(checkbox);
-    listItem.appendChild(label);
-    listItem.appendChild(editInput);
-    listItem.appendChild(editButton);
-    listItem.appendChild(deleteButton);
-    console.log(listItem);
+    const checkbox = createElement('input', { type: 'checkbox', className: 'checkbox'});
+    const label = createElement('label', {className: 'title'}, title);
+    const editInput = createElement('input', {type: 'text', className: 'textfield'});
+    const editButton = createElement('button', {className: 'edit'},'Изменить');
+    const deleteButton = createElement('button', {className: 'delete'},'Удалить');
+    const listItem = createElement('li', {className: 'todo-item'},checkbox,label,editInput,editButton,deleteButton);
 
     bindEvents(listItem);
 
@@ -58,7 +51,7 @@ function toggleTodoItem(){
     const listItem = this.parentNode;
     listItem.classList.toggle('completed');
 }
-//dont work idk
+
 function editTodoItem() {
     const listItem = this.parentNode;
     const title = listItem.querySelector('.title');
@@ -75,7 +68,7 @@ function editTodoItem() {
 
     listItem.classList.toggle('editing');
 }
-//
+
 function deleteTodoItem(){
     const listItem = this.parentNode;
     todoList.removeChild(listItem);
@@ -87,4 +80,9 @@ const addInput = document.getElementById('add-input');
 const todoList = document.getElementById('todo-list');
 const todoItems = document.querySelectorAll('.todo-item');
 
-todoForm.addEventListener('submit',addTodoItem);
+function main () {
+    todoForm.addEventListener('submit',addTodoItem);
+    todoItems.forEach(item => bindEvents(item));
+}
+
+main();
